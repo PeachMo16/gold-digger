@@ -119,8 +119,17 @@ Without these, an automated miner degrades into an automated hoarder:
 
 ## worked examples
 
-Two known-answer tests, reconstructed through the full pipeline with citations —
-one revival, one deserved death:
+One real run and two known-answer tests:
+
+- [examples/one-real-run/](examples/one-real-run/) — **a live find, published as-is**:
+  1970s–80s blackboard systems (Hearsay-II, BB1) as unacknowledged prior art for
+  2026 LLM swarm papers. Seven diggers across three architectures, every web claim
+  labeled extract-level because fetching was denied, one load-bearing claim marked
+  hearsay — and the single verification dig that later settled it first-hand
+  (SwarmWorld's full text: zero blackboard citations). The find's own verdict on
+  swarms is applied to the pipeline that produced it: one digger unless you can say
+  why one session can't absorb the lead. Read it for the honesty machinery, not the
+  history.
 
 - [examples/one-successful-dig/](examples/one-successful-dig/) — Karikó & Weissman's
   2005 nucleoside-modification paper: desk-rejected by *Nature* in 24 hours as
@@ -134,13 +143,18 @@ one revival, one deserved death:
 ## quick start
 
 ```
-git clone https://github.com/PeachMo16/gold-digger
-cp -r templates data
+git clone https://github.com/PeachMo16/gold-digger && cd gold-digger
+claude
+> /dig "1970s control theory results that predate cheap sensors"
 ```
 
-Then follow [RUNBOOK.md](RUNBOOK.md): the head agent loads the runbook, the house
-rules, and the queue; each subagent receives only its own role protocol. Add a
-domain to `data/queue.md`, approve the scout's first proposal, and the diggers go.
+The repo ships a Claude Code skill, [`/dig`](.claude/skills/dig/SKILL.md), that
+plays the head agent from [RUNBOOK.md](RUNBOOK.md): it bootstraps `data/` from
+`templates/`, files your domain as a lead, writes the scout's one-page proposal —
+and stops at the approve gate. `/dig LEAD-0001` advances a lead one state
+(digger → analyst → summarizer), each role a fresh subagent with only its own
+protocol; `/dig status` prints the queue. Other harnesses: follow the RUNBOOK by hand,
+the protocols are plain markdown.
 The repo ships the empty machine; everything it eats and produces stays in `data/`,
 which is git-ignored by default — see the privacy note in the house rules.
 
