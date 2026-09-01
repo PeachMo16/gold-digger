@@ -1,0 +1,13 @@
+{
+  "name": "gold-digger",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Evidence-traced agent protocols for rediscovering overlooked research. The protocols are markdown; this package only carries the checker that verifies a mine obeys them.",
+  "type": "module",
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "test": "node --test tools/check.test.mjs"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

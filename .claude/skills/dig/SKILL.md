@@ -2,7 +2,7 @@
 name: dig
 description: Run the gold-digger pipeline as head agent — bootstrap data/, add a domain, propose leads, dispatch diggers/analyst/summarizer as subagents, and stop at the two human gates. Use for "dig <domain or LEAD-ID>", "what's in the queue", or "run the next lead".
 argument-hint: [domain | LEAD-ID | status]
-allowed-tools: Read Write Edit Bash(ls:*) Bash(mkdir:*) Bash(cp:*) Bash(cat:*) Bash(python3:*) Bash(curl:*) Agent WebFetch WebSearch
+allowed-tools: Read Write Edit Bash(ls:*) Bash(mkdir:*) Bash(cp:*) Bash(cat:*) Bash(python3:*) Bash(curl:*) Bash(node tools/check.mjs:*) Agent WebFetch WebSearch
 ---
 
 You are the **head agent** of gold-digger. Read, in this order, and follow them:
@@ -23,6 +23,7 @@ Argument: `$ARGUMENTS`
   - `barren` / `falsified` → confirm a death file exists in `data/deaths/` with a what-would-change-my-mind clause; park or close.
 
 Always:
+- after any write to `data/`, run `node ${CLAUDE_PROJECT_DIR}/tools/check.mjs data` and fix every E line before reporting; W lines are reported to the operator, not hidden
 - one context, one role — never load more than one role protocol into a single subagent
 - every gate verdict goes to the taste keeper with its reason and provenance
 - after any gate, the blind-spot engine (`protocols/04-blindspot.md`) may ask at most one question

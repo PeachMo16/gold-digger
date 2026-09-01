@@ -1,5 +1,7 @@
 # ⛏️ gold-digger
 
+[![check](https://github.com/PeachMo16/gold-digger/actions/workflows/check.yml/badge.svg)](https://github.com/PeachMo16/gold-digger/actions/workflows/check.yml)
+
 **Evidence-traced agent protocols for rediscovering overlooked research.**
 
 Much of what science abandons was never disproven. It was set aside by timing,
@@ -163,8 +165,28 @@ the protocols are plain markdown.
 The repo ships the empty machine; everything it eats and produces stays in `data/`,
 which is git-ignored by default — see the privacy note in the house rules.
 
+## the checker
+
+The protocols are prose, and prose drifts. `tools/check.mjs` is the one piece of
+code in the repo: it reads a mine and reports where it breaks its own rules — a
+lead in two states, a `[falsified]` lead with no death file, a death file with no
+*what-would-change-my-mind* clause, a find with no three sentences, more than two
+verification digs, a gate verdict with no reason or no provenance, a `[judgment]`
+tag that cites no verdict. No model, no network, milliseconds.
+
+```
+node tools/check.mjs data      # your mine
+npm test                       # the checker against its fixtures + the empty templates
+```
+
+The `/dig` skill runs it after every write. CI runs it on the shipped templates, so
+an empty mine is always a valid mine.
+
 ## honest limitations
 
+- Every run so far — three finds, one death, one self-correction — was by the same
+  operator and the same head. Nobody outside has cloned this and dug a domain end
+  to end; until someone does, "it works" means "it worked for us".
 - Interestingness is not automated — it is learned from the operator, slowly,
   through the gates. Skip the approvals and you get a very diligent hoarder.
 - The autopsy taxonomy and five axes are hand-made reading discipline, not a
