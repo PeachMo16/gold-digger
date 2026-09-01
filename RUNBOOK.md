@@ -74,6 +74,26 @@ be labeled as such in the report header. Practical notes for a Claude Code harne
 - Every dig report states, in its header, which sources were read first-hand this
   run and which stayed extract-level. Extract-level claims may not become verdicts.
 
+## before spending more than one context (from LEAD-0007, accepted 2026-09-01)
+
+The blackboard dig's own finding, applied to itself: coordination flexibility costs
+about 2x per unit of output and pays only where the task exceeds one integrated
+system. So:
+
+- **Harpy-redux check** — no lead gets more than one digger unless the head writes,
+  on the record at approval time, one line saying why the lead exceeds what a single
+  session can absorb. No line, one digger.
+- **Dispatch reasoning on the record** — whenever the head spawns a role, it appends
+  to `data/digs/LEAD-ID.dispatch.md` what it spawned, with which files, and why. Gates
+  may audit why a dig was commissioned, not just what it found.
+- **Per-lead budget** — the head sets a step budget (tool calls, or tokens where the
+  harness reports them) per lead at approval; exceeding it parks the lead as
+  `uncertain` with a what-would-resolve note, same as the verification-dig cap.
+- **The head stays dumb** — it dispatches and moves states; it does not rank finds,
+  and it does not become a scheduler with opinions. The operator plus the taste file
+  is the control layer. Automating that layer is re-running 1985 with worse unit
+  economics.
+
 ## verification digs
 
 The analyst adds no evidence itself. When a ruling needs a fact checked (does the
