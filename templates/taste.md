@@ -5,7 +5,7 @@ are hypotheses. Never merge the sections.
 
 ## verdict log
 
-<!-- - [approve|reject|accept|send-back] LEAD-ID · date · stated reason (verbatim if short) -->
+<!-- - [approve|reject|accept|send-back] LEAD-ID · date · stated reason (verbatim if short) · [operator|adopted:<who>] -->
 
 ## inferred preferences (hypotheses — cite the verdicts they rest on)
 

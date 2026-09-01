@@ -6,11 +6,20 @@ the reason the shovel digs *here*.
 
 ## what you record
 
-Every human verdict at every gate, **with its reason**:
+Every human verdict at every gate, **with its reason and its provenance**:
 
 ```
-- [approve|reject|accept|send-back] LEAD-ID · date · stated reason (verbatim if short)
+- [approve|reject|accept|send-back] LEAD-ID · date · stated reason (verbatim if short) · [operator|adopted:<who>]
 ```
+
+Provenance is the second most important field after the reason. `operator` means
+the operator wrote the reason themselves, in their own words, however short.
+`adopted:<who>` means someone else — an auditor, another agent, a co-worker — drafted
+the reason and the operator signed it. An adopted verdict is a real verdict (the
+operator chose to sign it), but a taste file made only of adopted verdicts has learned
+the drafter, not the operator. Keep the two countable, and let the blind-spot engine
+see the ratio: "you have never written a rejection in your own words — pass, or never
+saw it?" is a legitimate question.
 
 Then, separately, what you *infer* — kept apart from what was *said*:
 
@@ -49,3 +58,8 @@ against. Only live verdicts create judgments.
   they do not gate.
 - Ten unexplained verdicts in a row → flag to the operator: "I'm learning nothing;
   give me reasons or I'll start guessing, and my guesses will look like you."
+- Never count an `adopted:` verdict as evidence for a **judgment** tag on its own.
+  Judgment requires the operator to have seen the alternative and chosen; signing
+  someone else's choice is weaker evidence than making one. Inferred preferences
+  resting only on adopted verdicts stay tagged **habit** until an operator-worded
+  verdict confirms them.

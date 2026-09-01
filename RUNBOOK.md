@@ -59,6 +59,21 @@ One writer per file, no exceptions:
 - `data/taste.md` — taste keeper only
 - `data/finds/` — summarizer only
 
+## reading the sources
+
+Rule 6 of the house rules (every claim traces to a read) is only satisfiable if diggers
+can actually read. The head must confirm, *before spawning*, that a digger's context
+can fetch web pages and open PDFs; a dig run where every citation is "extract-level"
+because fetching was denied is not a dig, it is a search-results summary, and should
+be labeled as such in the report header. Practical notes for a Claude Code harness:
+- `WebFetch` needs the domain allow-listed (arxiv.org, pmc.ncbi.nlm.nih.gov,
+  academic.oup.com, publisher domains); a digger subagent inherits the session's
+  permissions, so grant them in the head session first, not mid-dig.
+- PDFs: don't report "no local renderer" — `python3 -c "import pypdf"` is enough to
+  extract text from most journal PDFs; download with `curl`, extract, then read.
+- Every dig report states, in its header, which sources were read first-hand this
+  run and which stayed extract-level. Extract-level claims may not become verdicts.
+
 ## verification digs
 
 The analyst adds no evidence itself. When a ruling needs a fact checked (does the
