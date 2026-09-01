@@ -130,6 +130,11 @@ One real run and two known-answer tests:
   swarms is applied to the pipeline that produced it: one digger unless you can say
   why one session can't absorb the lead. Read it for the honesty machinery, not the
   history.
+- [examples/one-real-run/LEAD-0005-death.md](examples/one-real-run/LEAD-0005-death.md)
+  — **a real death file**: a lead spun off from an accepted find, dug by one digger
+  in 35 tool calls, found to be mis-posed at birth (the primary source never made
+  the claim), ruled *falsified* — and the correction it forced onto the earlier,
+  already-accepted find. The word "neglected" got quarantined on the way out.
 
 - [examples/one-successful-dig/](examples/one-successful-dig/) — Karikó & Weissman's
   2005 nucleoside-modification paper: desk-rejected by *Nature* in 24 hours as
