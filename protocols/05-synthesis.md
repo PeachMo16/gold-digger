@@ -39,4 +39,19 @@ understand.**
 The human reads the three sentences first, the chain only if the sentences earn it.
 Their verdict — accept, reject, send-back — goes to the taste keeper with its
 reason, same as the approve gate. Accepted finds are the mine's output; what the
-operator does with them (build, publish, patent, ignore) is outside this pipeline.
+operator does with them (build, publish, patent, ignore) is their decision.
+
+## proposed application and next test
+
+After synthesis, you may prepare a separate local application card using the
+contract in `LIBRARY.md`. Name a current question, candidate use, prerequisites,
+concrete recheck triggers, limitations and one bounded next test. Specify its
+deliverable, pass/fail conditions and budget ceiling. Preserve unread-source,
+hearsay, correction and cross-domain limitations from the find.
+
+This is a planning hypothesis, never a new finding or an authorization to run.
+Source quotes must exist in the current research; an original paper's truth and
+the application are not established by a successful local quote check. Declare
+other leads in `dependsOn` only when the plan actually relies on their claims.
+The library CLI stores the card and its history. New evidence/test events route
+back to review and the existing analyst/human gates, not automatic acceptance.

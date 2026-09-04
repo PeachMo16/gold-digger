@@ -114,6 +114,29 @@ Event-driven, not calendar-driven:
   the scout re-reads nearby death files' what-would-change-my-mind clauses. That
   is how a death file "reopens" — checked at events, not by a watcher on a clock.
 
+## reuse an existing find before another dig
+
+The local research library implements the procedural part of reuse. At a new
+question, run `node tools/library.mjs ask "the question"`; inspect the sources,
+current queue states, candidate applications, blockers and proposed tests.
+Topical matches are not rankings of scientific merit. Rejected interests stay
+out of results unless explicitly requested with `--include-rejected`.
+
+The summarizer may prepare an application card using `library draft` and
+`library save` (contract in `LIBRARY.md`). This preserves planning hypotheses
+separately from findings and analyst rulings. A card records a bounded test;
+it neither authorizes nor runs one. Existing approve/accept gates still apply.
+
+When an observer reads new evidence or records a test outcome, prepare an event
+and use `library event`. `library review` surfaces pending events, changed
+sources and affected explicit dependencies. The analyst determines what the
+evidence changes; the human gate remains authoritative. A tripwire may require
+a new lead rather than reopening the old one. Never let the CLI infer that choice.
+
+The CLI is the only writer of `data/library/{cards,events,revisions}/`. It pins
+local source quotes and hashes, retains replaced cards, and never modifies the
+queue, taste file or original research. No scheduled watcher is needed.
+
 ## bootstrap
 
 ```

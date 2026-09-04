@@ -167,12 +167,14 @@ which is git-ignored by default — see the privacy note in the house rules.
 
 ## the checker
 
-The protocols are prose, and prose drifts. `tools/check.mjs` is the one piece of
-code in the repo: it reads a mine and reports where it breaks its own rules — a
+The protocols are prose, and prose drifts. `tools/check.mjs` reads a mine and
+reports where it breaks its own rules — a
 lead in two states, a `[falsified]` lead with no death file, a death file with no
 *what-would-change-my-mind* clause, a find with no three sentences, more than two
 verification digs, a gate verdict with no reason or no provenance, a `[judgment]`
-tag that cites no verdict. No model, no network, milliseconds.
+tag that cites no verdict. Dispatch logs cannot stand in for research reports or
+resolution notes, and artifacts must belong to the exact lead ID being checked.
+No model, no network, milliseconds.
 
 ```
 node tools/check.mjs data      # your mine
@@ -181,6 +183,32 @@ npm test                       # the checker against its fixtures + the empty te
 
 The `/dig` skill runs it after every write. CI runs it on the shipped templates, so
 an empty mine is always a valid mine.
+
+## after the find: a reusable research library
+
+A find can now carry a candidate use, explicit prerequisites, and one proposed
+next test with a deliverable, pass/fail criteria and a budget ceiling. Search
+your existing mine in English or Chinese; uncatalogued Markdown remains
+searchable without pretending an application has been validated.
+
+```
+npm run library -- ask "when is swarm coordination worth the cost"
+npm run library -- ask "多智能体什么时候值得用"
+npm run library -- show LEAD-0007
+npm run library -- review
+npm run demo:library
+```
+
+Cards pin quoted local evidence. New support, challenges, changed conditions
+and test outcomes can be recorded as append-only events. Source edits and
+declared upstream dependencies bring affected plans back for review. Old card
+versions survive. Nothing automatically reopens a lead or passes a human gate.
+
+The library is local, deterministic and dependency-free. Retrieval measures
+topical overlap, not truth or semantic equivalence; a proposed test is not an
+earned finding. All real cards and events stay in private `data/`. The shipped
+demo is explicitly synthetic. See [LIBRARY.md](LIBRARY.md) for authoring cards,
+recording events, handling corrections and the current limits.
 
 ## honest limitations
 
@@ -195,6 +223,9 @@ an empty mine is always a valid mine.
   commercial use needs a real freedom-to-operate review.
 - Blind-spot questions are only as good as the verdict history behind them.
   Thin history, dumb questions.
+- The reuse library tracks only explicitly declared dependencies. It cannot
+  independently validate a paper, infer a cross-domain transfer, find the
+  cheapest possible experiment, or predict commercial success.
 
 ## provenance
 

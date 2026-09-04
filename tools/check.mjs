@@ -5,6 +5,7 @@
 //   node tools/check.mjs path/to/dir
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { getLibrary } from './library-core.mjs';
 
 export const STATES = [
   'proposed', 'approved', 'digging', 'dug', 'revival candidate', 'barren', 'falsified',
@@ -39,17 +40,21 @@ export function check(root = 'data') {
   // ── per-lead artifacts ─────────────────────────────────────────────────
   const digs = list(join(root, 'digs')), finds = list(join(root, 'finds')), deaths = list(join(root, 'deaths'));
   const proposals = list(join(root, 'proposals'));
-  const has = (files, id, re = '') => files.some((f) => f.startsWith(id) && new RegExp(re).test(f));
+  const belongsTo = (f, id) => f.endsWith('.md') && (f.startsWith(`${id}.`) || f.startsWith(`${id}-`));
+  const has = (files, id, re = '') => files.some((f) => belongsTo(f, id) && new RegExp(re).test(f));
+  // Dispatch logs document why work was assigned; they are not research evidence.
+  // Keep numbered/lettered dig reports valid, including older multi-digger runs.
+  const digReports = digs.filter((f) => !f.endsWith('.dispatch.md'));
   for (const { id, status } of leads) {
     const dug = ['dug', 'revival candidate', 'synthesized', 'accepted', 'sent-back', 'barren', 'falsified', 'uncertain'];
-    if (['digging', ...dug].includes(status) && !has(digs, id) && !has(deaths, id)) E(`${id} is [${status}] but has no dig report in digs/ (and no death file)`);
+    if (['digging', ...dug].includes(status) && !has(digReports, id) && !has(deaths, id)) E(`${id} is [${status}] but has no dig report in digs/ (and no death file)`);
     if (['barren', 'falsified'].includes(status) && !has(deaths, id)) E(`${id} is [${status}] but has no death file in deaths/ — house rule 1: death files are mandatory`);
     if (['synthesized', 'accepted'].includes(status) && !has(finds, id)) E(`${id} is [${status}] but has no find in finds/`);
     if (status === 'accepted' && !has(finds, id)) continue;
     if (['digging', ...dug].includes(status) && !has(digs, id, '\\.dispatch\\.md$')) W(`${id} [${status}] has no dispatch record digs/${id}.dispatch.md (RUNBOOK rule since 2026-09-01; older leads exempt)`);
     if (status === 'proposed' && !has(proposals, id)) W(`${id} is [proposed] with no one-page proposal in proposals/`);
     if (status === 'uncertain') {
-      const body = digs.filter((f) => f.startsWith(id)).map((f) => read(join(root, 'digs', f))).join('\n');
+      const body = digReports.filter((f) => belongsTo(f, id)).map((f) => read(join(root, 'digs', f))).join('\n');
       if (!/what[- ]would[- ]resolve/i.test(body)) E(`${id} is [uncertain] but no dig report carries a what-would-resolve-this note`);
     }
   }
@@ -100,6 +105,11 @@ export function check(root = 'data') {
     for (const p of prefs.filter(Boolean)) if (/^- \[judgment/.test(p) && !/#\d|verdict|accept|approve|reject|send-back/i.test(p)) E(`taste.md: a [judgment] preference cites no verdict: "${p.slice(0, 70)}…"`);
   }
 
+  if (existsSync(join(root, 'library'))) {
+    try {
+      for (const entry of getLibrary(root)) for (const reason of entry.reviewReasons) W(`library ${entry.leadId}: ${reason}`);
+    } catch (error) { E(`library: ${error.message}`); }
+  }
   const counts = Object.fromEntries(STATES.map((s) => [s, leads.filter((l) => l.status === s).length]).filter(([, n]) => n));
   return { errors, warnings, leads: leads.length, counts, provenance: prov };
 }
